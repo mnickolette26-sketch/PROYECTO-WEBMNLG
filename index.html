@@ -24,18 +24,18 @@
         <button id="btn-register" onclick="mostrarFormulario('register')">Registrarse</button>
     </div>
 
-    <form id="form-login" class="active">
+<form id="form-login" class="active" action="/login" method="POST">
         <h3>Iniciar Sesión</h3>
-        <input type="email" placeholder="Correo electrónico" required>
-        <input type="password" placeholder="Contraseña" required>
+        <input type="email" name="email" placeholder="Correo electrónico" required>
+        <input type="password" name="password" placeholder="Contraseña" required>
         <button type="submit">Ingresar</button>
     </form>
 
-    <form id="form-register">
+   <form id="form-register" action="/registrar" method="POST">
         <h3>Registro de Usuario</h3>
-        <input type="text" placeholder="Nombre completo" required>
-        <input type="email" placeholder="Correo electrónico" required>
-        <input type="password" placeholder="Contraseña" required>
+        <input type="text" name="nombre" placeholder="Nombre completo" required>
+        <input type="email" name="email" placeholder="Correo electrónico" required>
+        <input type="password" name="password" placeholder="Contraseña" required>
         <button type="submit">Registrarme</button>
     </form>
 </div>

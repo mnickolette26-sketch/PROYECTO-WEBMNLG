@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo de Poleras</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f0f2f5; margin: 0; padding: 20px; }
+        .header { display: flex; justify-content: space-between; align-items: center; background: white; padding: 10px 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin-bottom: 20px; }
+        .container { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; }
+        .card { background: white; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); width: 250px; padding: 15px; text-align: center; }
+        .card h3 { margin: 10px 0; color: #333; }
+        .price { font-size: 1.2em; color: #28a745; font-weight: bold; margin: 5px 0; }
+        .info { color: #666; font-size: 0.9em; margin: 5px 0; }
+        .btn-logout { background-color: #dc3545; color: white; border: none; padding: 10px 15px; border-radius: 4px; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h2>Tienda de Poleras - Panel de Usuario</h2>
+    <button class="btn-logout" onclick="window.location.href='/'">Cerrar Sesión</button>
+</div>
+
+<div class="container">
+    <div class="card">
+        <h3>Polera Básica Oversize</h3>
+        <p class="info"><strong>Color:</strong> Negro</p>
+        <p class="price">$14.990</p>
+        <p class="info"><strong>Stock disponible:</strong> 15 unidades</p>
+    </div>
+
+    <div class="card">
+        <h3>Polera Deportiva Fit</h3>
+        <p class="info"><strong>Color:</strong> Azul Marino</p>
+        <p class="price">$12.990</p>
+        <p class="info"><strong>Stock disponible:</strong> 8 unidades</p>
+    </div>
+
+    <div class="card">
+        <h3>Polera Streetwear Graphic</h3>
+        <p class="info"><strong>Color:</strong> Blanco</p>
+        <p class="price">$16.990</p>
+        <p class="info"><strong>Stock disponible:</strong> 3 unidades</p>
+    </div>
+</div>
+
+</body>
+</html>
