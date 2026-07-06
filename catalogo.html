@@ -5,14 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Catálogo de Poleras</title>
     <style>
-        body { font-family: Arial, sans-serif; background-color: #f0f2f5; margin: 0; padding: 20px; }
+        /*cambio de color fondo de la pagina */
+        body { 
+            font-family: Arial, sans-serif; 
+            background-color: #40e0d0; 
+            margin: 0; 
+            padding: 20px; 
+}
         .header { display: flex; justify-content: space-between; align-items: center; background: white; padding: 10px 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin-bottom: 20px; }
         .container { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; }
-        .card { background: white; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); width: 250px; padding: 15px; text-align: center; }
+        
+        /* Modificado para posicionar el botón en la esquina */
+        .card { background: white; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); width: 250px; padding: 15px; text-align: center; position: relative; }
+        
         .card h3 { margin: 10px 0; color: #333; }
         .price { font-size: 1.2em; color: #28a745; font-weight: bold; margin: 5px 0; }
         .info { color: #666; font-size: 0.9em; margin: 5px 0; }
         .btn-logout { background-color: #dc3545; color: white; border: none; padding: 10px 15px; border-radius: 4px; cursor: pointer; }
+        
+        /* Nuevo: Estilo para el botón de stock en la esquina */
+        .btn-stock { position: absolute; top: 10px; right: 10px; background-color: #ff9900; color: white; border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer; font-size: 0.8em; font-weight: bold; }
+        .btn-stock:hover { background-color: #e08800; }
     </style>
 </head>
 <body>
@@ -24,26 +37,55 @@
 
 <div class="container">
     <div class="card">
-        <h3>Polera Básica Oversize</h3>
+        <button class="btn-stock" onclick="modificarStock('oversize')">⚙️ Stock</button>
+        <h4>Polera Básica Oversize</h4>
         <p class="info"><strong>Color:</strong> Negro</p>
         <p class="price">$14.990</p>
-        <p class="info"><strong>Stock disponible:</strong> 15 unidades</p>
+        <p class="info"><strong>Stock disponible:</strong> <span id="stock-oversize">15</span> unidades</p>
     </div>
 
     <div class="card">
-        <h3>Polera Deportiva Fit</h3>
+        <button class="btn-stock" onclick="modificarStock('deportiva')">⚙️ Stock</button>
+        <h4>Polera Deportiva Fit</h4>
         <p class="info"><strong>Color:</strong> Azul Marino</p>
         <p class="price">$12.990</p>
-        <p class="info"><strong>Stock disponible:</strong> 8 unidades</p>
+        <p class="info"><strong>Stock disponible:</strong> <span id="stock-deportiva">8</span> unidades</p>
     </div>
 
     <div class="card">
-        <h3>Polera croptop mujer </h3>
+        <button class="btn-stock" onclick="modificarStock('croptop')">⚙️ Stock</button>
+        <h4>Polera croptop mujer </h4>
         <p class="info"><strong>Color:</strong> Blanco</p>
         <p class="price">$16.990</p>
-        <p class="info"><strong>Stock disponible:</strong> 3 unidades</p>
+        <p class="info"><strong>Stock disponible:</strong> <span id="stock-croptop">3</span> unidades</p>
     </div>
 </div>
+
+    
+    <h1>✨ Tienda Pamelita ✨</h1> <strong>Contactame al 978822341</strong> <h3>‼️TRABAJANDO PARA USTED DE LUNES A LUNES‼️</h3>
+
+
+<script>
+function modificarStock(idPolera) {
+    const codigoIngresado = prompt("Por favor, ingrese el código de autorización para modificar el stock:");
+
+    if (codigoIngresado === "54321") {
+        const nuevoStock = prompt("Código correcto. Ingrese la nueva cantidad de stock:");
+        
+        if (nuevoStock !== null && nuevoStock.trim() !== "" && !isNaN(nuevoStock)) {
+            const elementoStock = document.getElementById(`stock-${idPolera}`);
+            if (elementoStock) {
+                elementoStock.innerText = nuevoStock;
+                alert("¡Stock actualizado con éxito en la vista!");
+            }
+        } else if (nuevoStock !== null) {
+            alert("Cantidad ingresada no válida.");
+        }
+    } else {
+        alert("Código incorrecto o cancelado. No tienes permisos para modificar el stock.");
+    }
+}
+</script>
 
 </body>
 </html>
