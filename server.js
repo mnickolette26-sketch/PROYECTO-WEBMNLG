@@ -1,42 +1,46 @@
-// 1. Importamos las librerías que instalamos previamente
+// 1. Importamos las librerías
 const express = require('express');
 const mysql = require('mysql2');
 const bodyParser = require('body-parser');
 const path = require('path');
 
 const app = express();
-const PORT = 3000; // El servidor correrá en el puerto 3000
+const PUERTO_WEB = 8080; // El servidor correrá en el puerto 8080
 
-// 2. Configuración para que Node pueda leer los datos de los formularios HTML
+// 2. para que Node pueda leer los datos de los formularios HTML
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // Configuración para que Express reconozca la carpeta actual y sus archivos estáticos
 app.use(express.static(__dirname));
 
-// 3. Configuración de la conexión a la Base de Datos MySQL
-const conexion = mysql.createConnection({
-    host: '127.0.0.1',      // Su servidor local (XAMPP)
-    user: 'root',           // Usuario por defecto de XAMPP
-    password: '',           // Contraseña por defecto (vacía en XAMPP)
-    database: 'sistema_usuarios' // El nombre exacto que le pusimos a la base de datos
+// 3. Configuración de un POOL de conexiones a la Base de Datos MySQL
+const conexion = mysql.createPool({
+    host: '127.0.0.1',           //  servidor local (XAMPP)
+    user: 'root',                // Usuario por defecto de XAMPP
+    password: '',                // Contraseña por defecto (vacía en XAMPP)
+    database: 'sistema_usuarios', // El nombre base de datos
+    waitForConnections: true,
+    connectionLimit: 10,         // Máximo de conexiones simultáneas
+    queueLimit: 0
 });
 
-// 4. Conectar físicamente a la base de datos
-conexion.connect((error) => {
+// Comprobcion de que el Pool responda correctamente
+conexion.getConnection((error, poolConexion) => {
     if (error) {
         console.error('Error al conectar a la base de datos MySQL:', error);
     } else {
-        console.log('¡Conexión exitosa a la base de datos MySQL con XAMPP!');
+        console.log('¡Conexión exitosa y estable a la base de datos MySQL con XAMPP!');
+        poolConexion.release(); // Devolvemos la conexión de prueba al pool
     }
 });
 
-// 5. Indicarle al servidor que muestre el archivo HTML cuando entremos a la página
+// 4. Indicarle al servidor que muestre el archivo HTML cuando entremos a la página
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-// 5.5 RUTA PARA PROCESAR EL REGISTRO DE USUARIOS
+// 5. RUTA PARA PROCESAR EL REGISTRO DE USUARIOS
 app.post('/registrar', (req, res) => {
     // Capturamos los datos que el usuario escribió en el formulario HTML
     const { nombre, email, password } = req.body;
@@ -52,12 +56,12 @@ app.post('/registrar', (req, res) => {
         } else {
             console.log('¡Usuario registrado con éxito en MySQL!');
             // Le enviamos una respuesta visual simple al navegador del usuario
-           res.redirect('/');
+            res.redirect('/');
         }
     });
 });
 
-// 5.7 RUTA PARA PROCESAR EL INICIO DE SESIÓN (LOGIN)
+// 6. RUTA PARA PROCESAR EL INICIO DE SESIÓN (LOGIN)
 app.post('/login', (req, res) => {
     // Capturamos el correo y contraseña ingresados por el usuario
     const { email, password } = req.body;
@@ -83,7 +87,7 @@ app.post('/login', (req, res) => {
     });
 });
 
-// 6. Iniciar el servidor y dejarlo escuchando peticiones
-app.listen(PORT, () => {
-    console.log(`Servidor corriendo en el enlace: http://localhost:${PORT}`);
+// 7. Iniciar el servidor y dejarlo escuchando peticiones
+app.listen(PUERTO_WEB, () => {
+    console.log(`Servidor corriendo en el enlace: http://localhost:${PUERTO_WEB}`);
 });
